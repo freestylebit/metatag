@@ -41,6 +41,22 @@ class FieldItemNormalizer extends NormalizerBase {
         // Get serialized value and break it into an array of tags with values.
         $serialized_value = $field_item->get('value')->getValue();
         $tags += unserialize($serialized_value);
+
+        // hreflang links
+        $entity = $field_item->getEntity();
+        $tags['hreflang'] = array();
+        foreach ($entity->getTranslationLanguages() as $language) {
+
+            $url = $entity->urlInfo()
+                 ->setOption('language', $language)
+                 ->setAbsolute()
+                 ->toString();
+
+            array_push($tags['hreflang'],
+                       array( 'langcode' => $language->getId(),
+                              'url' => $url));
+        }
+
     }
 
     return $tags;
