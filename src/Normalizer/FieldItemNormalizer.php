@@ -49,7 +49,6 @@ class FieldItemNormalizer extends NormalizerBase {
 
             $url = $entity->urlInfo()
                  ->setOption('language', $language)
-                 ->setAbsolute()
                  ->toString();
 
             array_push($tags['hreflang'],
